@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
+    <!-- <script src="../build/nv.d3.js"></script> -->
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script> -->
+    <!-- <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <style>
+        button{
+            height: 35px;
+            display:inline-block;
+        }
+        p.toFill{
+            float:left;
+            width:100px;
+            border-style: solid;
+            border-width: 2px;
+            margin: auto;
+        }
+        text {
+            font: 14px sans-serif;
+        }
+        .mytoolBar{
+             display: inline-block;
+            vertical-align: text-bottom;
+        }
+        #period{
+            vertical-align: text-top;
+        }
+        svg {
+            display: inline-block;
+        }
+        html, body, svg {
+            margin: 0px;
+            padding: 0px;
+            height: 100%;
+            width: 100%;
+        }
+
+        select {
+          width: 200px;
+          height: 20px;
+         }
+        .mysvg{
+            /*display: inline-block;*/
+            display: block;
+            /*height: 500px;*/
+            height: 400px;
+            /*width: 900px;*/
+            width: 100%;
+            /*float:left;*/
+         }
+        .barchartsvg{
+            display: inline-block;
+            height: 700px;
+            width: 900px;
+         }
+        /* #stepsContainer{
+            position: relative;
+         }*/
+         #stepsContent{
+            position:relative;
+         }
+
+        /*.modal {
+        display:    none;
+        position:   fixed;
+        z-index:    1000;
+        top:        0;
+        left:       0;
+        height:     100%;
+        width:      100%;
+        background: rgba( 255, 255, 255, .8 )
+                url('http://i.stack.imgur.com/FhHRx.gif')
+                50% 50%
+                no-repeat;
+        }*/
+
+        .modal {
+        /* some styles to position the modal at the center of the page */
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 300px;
+        line-height: 200px;
+        height: 200px;
+        margin-left: -150px;
+        margin-top: -100px;
+        background-color: #f1c40f;
+        background: rgba( 255, 255, 255, .8 )
+                url('http://i.stack.imgur.com/FhHRx.gif')
+                50% 50%
+                no-repeat;
+        text-align: center;
+        /* needed styles for the overlay */
+        z-index: 10; /* keep on top of other elements on the page */
+        outline: 9999px solid rgba(0,0,0,0.5);
+
+        }
+          /* the scrollbar off with overflow:hidden */
+        body.loading {
+            overflow: hidden;
+        }
+
+        /* Anytime the body has the loading class, our
+           modal element will be visible */
+        body.loading .modal {
+            display: block;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .nvd3 .nv-axis.nv-x path.domain {
+          stroke-opacity: 1;
+        }
+        div.myinline{
+            height:400px;
+            width:900px;
+            display:inline-block;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+<!-- <div id="test1" class='mysvg with-3d-shadow with-transitions'>
+    <p class="toFill notStressMessage"></p>
+    <svg></svg>
+</div><div id="test2" class='mysvg with-3d-shadow with-transitions'>
+    <p class="toFill stressMessage"></p><br>
+    <p class="toFill notStressMessage"></p>
+    <svg></svg>
+</div> -->
+
+
+<div id="test1" class='mysvg with-3d-shadow with-transitions'>
+   <!--  <p id="stressMessage" class="toFill"></p><br>
+    <p id="notStressMessage" class="toFill"></p> -->
+    <div class="myinline"><svg></svg></div><div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
+    <p class="toFill notStressMessage"></p></div>
+</div>
+<div id="test2" class='mysvg with-3d-shadow with-transitions'>
+    <!-- <p id="stressMessage" class="toFill"></p><br>
+    <p id="notStressMessage" class="toFill"></p> -->
+   <!--  <p class="toFill stressMessage"></p><br>
+    <p class="toFill notStressMessage"></p> -->
+    <div class="myinline"><svg></svg></div>
+    <div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
+    <p class="toFill notStressMessage"></p></div>
+</div>
+
+<div id="test3" class='mysvg with-3d-shadow with-transitions'>
+   <!--  <p id="stressMessage" class="toFill"></p><br>
+    <p id="notStressMessage" class="toFill"></p> -->
+    <div class="myinline"><svg></svg></div><div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
+    <p class="toFill notStressMessage"></p></div>
+</div><div class="myinline showFace"></div>
+<div id="test4" class='mysvg with-3d-shadow with-transitions'>
+    <!-- <p id="stressMessage" class="toFill"></p><br>
+    <p id="notStressMessage" class="toFill"></p> -->
+   <!--  <p class="toFill stressMessage"></p><br>
+    <p class="toFill notStressMessage"></p> -->
+    <div class="myinline"><svg></svg></div>
+    <div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
+    <p class="toFill notStressMessage"></p></div>
+</div>
+
+
+
+<div id="test5" class='mysvg with-3d-shadow with-transitions'>
+    <div class="myinline"><svg></svg></div><div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
+    <p class="toFill notStressMessage"></p></div>
+</div>
+<div id="test6" class='mysvg with-3d-shadow with-transitions'>
+    <div class="myinline"><svg></svg></div>
+    <div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
+    <p class="toFill notStressMessage"></p></div>
+</div>
+
+
+
+<!-- <div id="test5" class='barchartsvg with-3d-shadow with-transitions'>
+    <svg></svg>
+</div><div id="test6" class='barchartsvg with-3d-shadow with-transitions'>
+    <svg></svg>
+</div> -->
+
+
+<div id="test7" class='barchartsvg with-3d-shadow with-transitions'>
+    <svg></svg>
+</div>
+<div id = "stepContainer">
+<div id='stepsContent'>
+          <!-- /the chart goes here -->
+</div>
+</div>
+<div class="modal">Data is loading......Please wait!<!-- Place at bottom of page --></div>
+
+
+
+<script>
+
+var serverAddress = "localhost";
+var port = "4010";
+var url = "/space/";
+
+
+jQuery( "#period" ).selectmenu();
+
+
+var colorArray = ['#cc0066', '#ff0066', '#ff6666', '#ff9966', '#ffcc66', '#99cc00', '#408000'];
+var shapes = ['diamond', 'triangle-down', 'triangle-up', 'square', 'cross', 'circle', 'circle'];
+var colorArray_simple = ['#ff3399', '#3399ff', '#66ff99'];
+var shapes_simple = ['circle', 'circle', 'circle'];
+
+var splits = [[0,25.0], [25.0,75.0], [75.0,100]];
+var groupNames = ['HRV Bad','HRV Regular', 'HRV Good' ];
+var dataStore = [];
+
+
+function hrvBox(){
+
+
+    function showData(data,updateTarget){
+
+        function parseReturnData(data){
+            var returnData = [];
+            var timeFormat = d3.time.format('%Y-%m-%d %H:%M:%S');
+            console.log(data.length);
+            // var groupNumber = 3;
+            var groupNumber = splits.length;
+            // var groupNumber = 7;
+            var pointsNumber = Math.floor(data.length/groupNumber);
+            for(i = 0; i<groupNumber; i++)
+            {
+                returnData.push({
+                key: groupNames[i],
+                values:[]
+                });
+            }
+            var maxRmssd = 0, minRmssd = 100;
+            for (i = 0; i<data.length; i++){
+                if(data[i].rmssd>maxRmssd){
+                    maxRmssd = data[i].rmssd;
+                }
+
+                if(data[i].rmssd<minRmssd){
+                    minRmssd = data[i].rmssd;
+                }
+            }
+            var rmssdRange = maxRmssd-minRmssd;
+
+            for(var j = 0; j<groupNumber; j++)
+            {
+                for(var i =0; i< data.length; i++){
+
+                    if(data[i].rmssd>minRmssd+rmssdRange*splits[j][0]/100.0&&
+                       data[i].rmssd<minRmssd+rmssdRange*splits[j][1]/100.0 )
+                    {
+
+                        if(j===0||j===groupNumber-1){
+                            returnData[j].values.push(
+                            {   //x: i,
+                                x: +timeFormat.parse(data[i].date),
+                                y: data[i].rmssd,
+                                size: 5,
+                                shape: shapes_simple[j%groupNumber]
+                            });
+                        }
+                        else{
+                            returnData[j].values.push(
+                            {   //x: i,
+                                x: +timeFormat.parse(data[i].date),
+                                y: data[i].rmssd,
+                                size: 5,
+                                shape: shapes_simple[j%groupNumber]
+                            });
+                        }
+                    }
+                }
+            }
+            return returnData;
+        }
+
+        var returnData = parseReturnData(data);
+
+        console.log(returnData);
+
+
+        var chart1;
+        nv.addGraph(function() {
+            chart1 = nv.models.scatterChart(updateTarget)
+             // .showDistX(true)
+            // .showDistY(true)
+            // .useVoronoi(true)
+            // .color(colorArray)
+            .color(colorArray_simple)
+            .duration(300)
+            .pointRange([30, 100])
+            .width(900)
+            .height(400);
+
+
+            chart1.dispatch.on('renderEnd', function(){
+                console.log('render complete');
+            });
+
+            chart1.yAxis.axisLabel('Heart Rate Variablity').tickFormat(d3.format('.02f'));
+            chart1.xAxis.axisLabel('Time')
+                .tickFormat(
+                function(d){
+                return d3.time.format('%m/%d %H:%M')(new Date(d)
+                    )
+                });
+            chart1.xScale(d3.time.scale());
+
+
+
+
+            var svgUpdateTarget = "#"+updateTarget+" svg";
+            // d3.select('#test1 svg').html('');
+            // svg = d3.select('#test1 svg')
+            //     .datum(returnData)
+            //     .call(chart1);
+
+            d3.select(svgUpdateTarget).html('');
+            svg = d3.select(svgUpdateTarget)
+                .datum(returnData)
+                .call(chart1);
+
+
+            // d3.select('#test2 svg').html('');
+            // svg = d3.select('#test2 svg')
+            //     .datum(returnData)
+            //     .call(chart1);
+
+            // d3.select('#test3 svg').html('');
+            // svg = d3.select('#test3 svg')
+            //     .datum(returnData)
+            //     .call(chart);
+
+
+            // d3.select('#test4 svg').html('');
+            // svg = d3.select('#test4 svg')
+            //     .datum(returnData)
+            //     .call(chart);
+
+            console.log("load data");
+            nv.utils.windowResize(chart1.update);
+
+            chart1.dispatch.on('stateChange', function(e) { ('New State:', JSON.stringify(e)); });
+            return chart1;
+        });
+
+
+
+
+        return returnData;
+
+    }
+
+
+function builtFaceChart(builtTarget,xScale, yScale){
+
+
+
+    var margin = {top: 20, right: 15, bottom: 60, left: 60}
+      , width = 960 - margin.left - margin.right
+      , height = 500 - margin.top - margin.bottom;
+
+
+      //****** chart initialization
+    var chart = d3.select(builtTarget)
+        .append('svg:svg')
+        .attr('width', width + margin.right + margin.left)
+        .attr('height', height + margin.top + margin.bottom)
+        .attr('class', 'chart');
+
+    var main = chart.append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('class', 'main');
+
+
+        //vertical lines
+    chart.selectAll(".vline").data(d3.range(21)).enter()
+            .append("line")
+            .attr("x1", function (d) {
+            return d * (width / 6)-width/6/2;
+        })
+        .attr("x2", function (d) {
+        return d * (width / 6)-width/6/2;
+        })
+        .attr("y1", function (d) {
+        return 0;
+        })
+        .attr("y2", function (d) {
+        return height;
+        })
+        .style("stroke", "#c2c2d6")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var xAxis = d3
+          .axisBottom(x)
+          .ticks(d3.timeDay, 1)
+          .tickFormat(d3.timeFormat("%b-%d"))
+
+    main.append('g')
+        .attr('transform', 'translate(0,' + height + ')')
+        .attr('class', 'main axis date')
+        .call(xAxis);
+
+
+    var yAxis = d3
+          .axisLeft(y);
+
+    main.append('g')
+        .attr('transform', 'translate(0,0)')
+        .attr('class', 'main axis date')
+        .call(yAxis);
+
+
+}
+
+
+
+    function fetch_data_Scatter(updateTarget, device_id, method){
+            console.log("fetch1");
+            var request = {};
+            request.jsonrpc = "2.0";
+            request.params = {};
+            request.method = method;
+            // request.method = 'fetchDataOneDay';
+            // request.params.device_id = "14AA930C-9414-7272-5359-AF5D370AC840";
+            request.params.device_id = device_id;
+
+
+            // var dateVal = jQuery("#datepicker").val();
+            // request.params.startDate = dateVal;
+            // console.log(dateVal);
+            // request.params.value = value;
+             request.id = 0;
+
+             // var targetToUpdate = "test1";
+             var targetToUpdate = updateTarget;
+
+            function displaySearchResult(response) {
+                if (response.error)
+                        alert("Search error: " + response.error.message);
+                else{
+                    result = response.result;
+                    console.log(result);
+                    showData(result, targetToUpdate);
+                }
+            };
+
+            jQuery.ajax({
+              url:url,
+              type:"POST",
+              data:JSON.stringify(request),
+              contentType:"application/json; charset=utf-8",
+              dataType:"json",
+              success: displaySearchResult
+            });
+
+     }
+
+
+
+
+    function showBarChart(data, updateTarget){
+
+        var svgUpdateTarget = "#"+updateTarget+" svg";
+
+        nv.addGraph(function() {
+          var chart = nv.models.discreteBarChart()
+              .x(function(d) { return d.label })    //Specify the data accessors.
+              .y(function(d) { return d.value })
+              // .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
+              // // .tooltips(false)        //Don't show tooltips
+              .showValues(true)       //...instead, show the bar value right on top of each bar.
+              // .transitionDuration(350)
+              ;
+          d3.select(svgUpdateTarget).html('');
+          d3.select(svgUpdateTarget)
+              .datum(parseData(data))
+              .call(chart);
+
+          nv.utils.windowResize(chart.update);
+
+          return chart;
+        });
+
+        //Each bar represents a single discrete quantity.
+        function parseData(data) {
+            var timeFormat = d3.time.format('%Y-%m-%d %H:%M:%S');
+            var values = [];
+            var numbers = [];
+            for(var i =0; i< data.length; i++){
+                var date = timeFormat.parse(data[i].date);
+                var hourFormat = d3.time.format('%H');
+                var hourStr = hourFormat(date);
+                var hour = parseInt(hourStr);
+                // console.log(hour);
+                if( typeof values[hour] !== "undefined" )
+                {   var n =  numbers[hour];
+                    var m_n = values[hour].value;
+                    var m_np1 = m_n*n/(n+1) + data[i].rmssd/(n+1);
+                    values[hour] = {"label":''+hour,"value":m_np1};
+                    numbers[hour] = numbers[hour]+1;
+                }else{
+                    values[hour] = {"label":''+hour,"value":data[i].rmssd};
+                    numbers[hour] = 1;
+                }
+            }
+
+            if(typeof values[0] === "undefined")
+            {
+                var valueANDlabel = {};
+                valueANDlabel.label = ''+0;
+                valueANDlabel.value = ''+0;
+                values[0] = valueANDlabel;
+            }
+
+            var hoursNumber = 23
+            for(var i = 0; i< hoursNumber; i++)
+            {
+                if(typeof values[i]==="undefined")
+                {
+                    var valueANDlabel = {};
+                    valueANDlabel.label = ''+(parseInt(values[i-1].label)+1);
+                    valueANDlabel.value = ''+0;
+                    values[i]=valueANDlabel;
+                }
+            }
+            var returnVal = [];
+            var element = {};
+            element.key = "Cumulative Return";
+            element.values  = values;
+            returnVal.push(element);
+            return returnVal;
+
+
+
+        }
+
+     }
+
+
+     function fetch_data_bar(updateTarget, device_id, method){
+            console.log("fetch1");
+            var request = {};
+            request.jsonrpc = "2.0";
+            request.params = {};
+            request.method = method;
+            // request.method = 'fetchDataOneDay';
+            // request.params.device_id = "14AA930C-9414-7272-5359-AF5D370AC840";
+            request.params.device_id = device_id;
+
+
+            // var dateVal = jQuery("#datepicker").val();
+            // request.params.startDate = dateVal;
+            // console.log(dateVal);
+            // request.params.value = value;
+             request.id = 0;
+
+             // var targetToUpdate = "test1";
+             var targetToUpdate = updateTarget;
+
+            function displaySearchResult(response) {
+                if (response.error)
+                        alert("Search error: " + response.error.message);
+                else{
+                    result = response.result;
+                    console.log(result);
+                    showBarChart(result, targetToUpdate);
+                }
+            };
+
+            jQuery.ajax({
+              url:url,
+              type:"POST",
+              data:JSON.stringify(request),
+              contentType:"application/json; charset=utf-8",
+              dataType:"json",
+              success: displaySearchResult
+            });
+
+     }
+
+
+
+      function showHorizontalBarChart(dataStore, updateTarget){
+
+        var svgUpdateTarget = "#"+updateTarget+" svg";
+
+        nv.addGraph(function() {
+        var chart = nv.models.multiBarHorizontalChart()
+            .x(function(d) { return d.label })
+            .y(function(d) { return d.value })
+            .margin({top: 30, right: 20, bottom: 50, left: 175})
+            .showValues(true)           //Show bar value next to each bar.
+            .showControls(true);        //Allow user to switch between "Grouped" and "Stacked" mode.
+
+        chart.yAxis
+            .tickFormat(d3.format(',.2f'));
+
+        d3.select(svgUpdateTarget)
+            .datum(getDataStore(dataStore))
+            .call(chart);
+         // nv.utils.windowResize(chart.update);
+
+        return chart;
+
+        });
+
+        function getDataStore(dataStore)
+        {
+            var data_id1 = parseData(dataStore[0]);
+            var data_id2 = parseData(dataStore[1]);
+            var returnData = [];
+            var obj1 = {};
+            var obj2 = {};
+            obj1.key = "id1";
+            obj2.key = "id2";
+            var color1 = "#d67777";
+            var color2 = "#4f99b4";
+            obj1.color = color1;
+            obj2.color = color2;
+            obj1.values  = data_id1;
+            obj2.values  = data_id2;
+            returnData.push(obj1);
+            returnData.push(obj2);
+            return returnData;
+
+        }
+
+        //Each bar represents a single discrete quantity.
+        function parseData(data) {
+            var timeFormat = d3.time.format('%Y-%m-%d %H:%M:%S');
+            var values = [];
+            var numbers = [];
+            for(var i =0; i< data.length; i++){
+                var date = timeFormat.parse(data[i].date);
+                var hourFormat = d3.time.format('%H');
+                var hourStr = hourFormat(date);
+                var hour = parseInt(hourStr);
+                console.log(hour);
+                if( typeof values[hour] !== "undefined" )
+                {   var n =  numbers[hour];
+                    var m_n = values[hour].value;
+                    var m_np1 = m_n*n/(n+1) + data[i].rmssd/(n+1);
+                    values[hour] = {"label":''+hour,"value":m_np1};
+                    numbers[hour] = numbers[hour]+1;
+                }else{
+                    values[hour] = {"label":''+hour,"value":data[i].rmssd};
+                    numbers[hour] = 1;
+                }
+            }
+
+            if(typeof values[0] === "undefined")
+            {
+                var valueANDlabel = {};
+                valueANDlabel.label = ''+0;
+                valueANDlabel.value = ''+0;
+                values[0] = valueANDlabel;
+            }
+
+            var hoursNumber = 23
+            for(var i = 0; i< hoursNumber; i++)
+            {
+                if(typeof values[i]==="undefined")
+                {
+                    var valueANDlabel = {};
+                    valueANDlabel.label = ''+(parseInt(values[i-1].label)+1);
+                    valueANDlabel.value = ''+0;
+                    values[i]=valueANDlabel;
+                }
+            }
+            // var returnVal = [];
+            // var element = {};
+            // element.key = "Cumulative Return";
+            // element.values  = values;
+            // returnVal.push(element);
+            return values;
+
+
+
+        }
+
+     }
+
+
+    // getDataFromJson();
+    var device_id1 = "58F589D3-8138-F256-EFD6-195439060E72";
+    var device_id2 = "FB33862F-EA4D-A16F-69E5-CE7109AA14B0";
+    var device_id3 = "A6955B56-1FB7-97C3-8B1E-1D235EDF0D93";
+    var device_id4 = "49AB8FD6-012E-4C61-6F04-18A17A304203";
+    var method1 = 'fetchDataOneDay';
+    var method2 = 'fetchDataWeek';
+    // fetch_data_Scatter("test1", device_id1, method1 );
+    // fetch_data_Scatter("test2", device_id2, method1);
+     fetch_data_Scatter("test3", device_id2, method2);
+     fetch_data_Scatter("test4", device_id3, method2);
+    // fetch_data_bar("test5",device_id1, method1);
+    // fetch_data_bar("test6",device_id2, method1);
+    // fetch_data2();
+    // fetch_data3();
+    // fetch_data4();
+    // showHorizontalBarChart("data", "test7");
+
+    var numberCalls = 2
+    var ajaxCallsRemaining = numberCalls;
+    var returnedData = [];
+    var ajaxMethods = [];
+    var device_ids = [];
+    device_ids.push(device_id2);
+    device_ids.push(device_id3)
+    ajaxMethods.push(method1);
+    ajaxMethods.push(method1);
+    var request
+
+    // for (var i = 0; i < numberCalls; i++) {
+
+    //     var request = {};
+    //     request.jsonrpc = "2.0";
+    //     request.params = {};
+    //     // request.method = method;
+    //     request.method = ajaxMethods[i];
+    //     request.params.device_id = device_ids[i];
+    //     request.id = 0;
+    //     // var targetToUpdate = updateTarget;
+
+    //     function displaySearchResult(response) {
+    //         if (response.error)
+    //                 alert("Search error: " + response.error.message);
+    //         else{
+    //             result = response.result;
+    //             // showBarChart(result, targetToUpdate);
+    //             dataStore.push(result);
+    //         }
+    //          --ajaxCallsRemaining;
+    //         if (ajaxCallsRemaining <= 0) {
+    //              showHorizontalBarChart(dataStore, "test7");
+    //              showData(dataStore[0], "test1");
+    //              showData(dataStore[1], "test2");
+    //              showBarChart(dataStore[0], "test5");
+    //              showBarChart(dataStore[1], "test6");
+    //              jQuery("body").removeClass("loading");
+    //         }
+    //     };
+
+    //     jQuery.ajax({
+    //       url:url,
+    //       type:"POST",
+    //       data:JSON.stringify(request),
+    //       contentType:"application/json; charset=utf-8",
+    //       dataType:"json",
+    //       success: displaySearchResult
+    //     });
+
+    // }
+
+}
+
+// hrvBox();
+
+
+
+
+
+var script1 = document.createElement("script"),
+     script2 = document.createElement("script"),
+     script3 = document.createElement("script"),
+     newD3;
+
+
+// function noConflict() {
+//     newD3 = d3;
+//     console.log("loaded old");
+//     script2.type = 'text/javascript';
+//     script2.src = "http://d3js.org/d3.v2.min.js";
+//     script2.addEventListener("load", ready, false);
+//     document.head.appendChild(script2);
+// }
+
+// function ready() {
+//     console.log("loaded new");
+//     console.log(d3, newD3);
+
+
+// console.log(newD3);
+
+function noConflict(){
+    // newD3 = d3;
+var data = [[5,3], [10,17], [15,4], [2,8]];
+var dataFootStep = [[4213, new Date(2016,3,1)],[3340, new Date(2016,3,2)],[2345,
+new Date(2016,3,3)],[6756, new Date(2016,3,4)],[5543, new Date(2016,3,5)]];
+
+
+var dataFootStep1 = [[2450, new Date(2016,3,1)],[6262, new Date(2016,3,2)],[4360,
+new Date(2016,3,3)],[5644, new Date(2016,3,4)],[8810, new Date(2016,3,5)]];
+
+
+var margin = {top: 20, right: 15, bottom: 60, left: 60}
+  , width = 960 - margin.left - margin.right
+  , height = 500 - margin.top - margin.bottom;
+
+var mindate = new Date(2016,2,31),
+    maxdate = new Date(2016,3,6);
+// var x = d3.time.scale()
+var x = d3.scaleTime()
+      .domain([mindate, maxdate])
+.range([0, width]);
+
+
+
+var y = d3.scaleLinear()
+          .domain([0, 10000])
+          .range([ height, 0 ]);
+
+
+var chart = d3.select('#stepsContent')
+.append('svg:svg')
+.attr('width', width + margin.right + margin.left)
+.attr('height', height + margin.top + margin.bottom)
+.attr('class', 'chart')
+
+var main = chart.append('g')
+.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+.attr('width', width)
+.attr('height', height)
+.attr('class', 'main')
+
+
+//vertical lines
+chart.selectAll(".vline").data(d3.range(7)).enter()
+    .append("line")
+    .attr("x1", function (d) {
+    return d * (width / 6)-width/6/2;
+})
+    .attr("x2", function (d) {
+    return d * (width / 6)-width/6/2;
+})
+    .attr("y1", function (d) {
+    return 0;
+})
+    .attr("y2", function (d) {
+    return height;
+})
+    .style("stroke", "#c2c2d6")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  // draw the x axis
+// var xAxis = d3.svg.axis()
+// .scale(x)
+// .orient('bottom')
+// .tickFormat(d3.time.format("%b-%d"))
+// .tickArguments([d3.timeDay.every(1)]);
+
+
+ var xAxis = d3
+  .axisBottom(x)
+  .ticks(d3.timeDay, 1)
+  .tickFormat(d3.timeFormat("%b-%d"))
+
+
+main.append('g')
+.attr('transform', 'translate(0,' + height + ')')
+.attr('class', 'main axis date')
+.call(xAxis);
+
+  // draw the y axis
+// var yAxis = d3.svg.axis()
+// .scale(y)
+// .orient('left');
+
+var yAxis = d3
+  .axisLeft(y);
+  // .ticks(d3.timeDay, 1)
+  // .tickFormat(d3.timeFormat("%b-%d"))
+
+
+
+main.append('g')
+.attr('transform', 'translate(0,0)')
+.attr('class', 'main axis date')
+.call(yAxis);
+
+ // console.log(newD3.version);
+
+
+// newD3.xml("footprintleft.svg").mimeType("image/svg+xml").get(function(error, xml) {
+d3.xml("footprintleft.svg").mimeType("image/svg+xml").get(function(error, xml) {
+  if (error) throw error;
+  var svgObject = jQuery(xml.documentElement);
+  svgObject.attr("width", 40);
+  svgObject.attr("height", 50);
+  svgObject.css("position","absolute")
+  svgObject.attr("left", 20+x(20));
+  svgObject.attr("top", 20+y(20));
+  svgObject.attr("fill-opacity",0.3);
+  svgObject.attr("style","stroke:black;stroke-opacity:0.7");
+
+
+
+  svgObject.attr("fill","red");
+
+
+
+  createLeftFoot(jQuery("#stepsContent"),dataFootStep,"blue");
+  // createLeftFoot(jQuery("body"),dataFootStep1,"red");
+  function createLeftFoot(obj, data, color)
+  {
+    var leftOffset = 20;
+    jQuery.each(data, function(i,d){
+      console.log(i+"-"+d);
+      var tempx1 = d[1];
+      var tempy1 = d[0];
+      var xx1 = (margin.left+x(tempx1))-leftOffset;
+      var yy1 = (margin.top+y(tempy1));
+      var mydiv1 = jQuery("<div></div>");
+      mydiv1.attr("id","mydiv1");
+      var svgObjecttemp = svgObject.clone();
+      svgObjecttemp.attr("fill",color);
+      // svgObjecttemp.attr("fill","blue");
+      mydiv1.append(svgObjecttemp);
+      mydiv1.css("top",yy1+"px");
+      mydiv1.css("left",xx1+"px");
+      mydiv1.css("position","absolute");
+      obj.append(mydiv1);
+    });
+  }
+});
+
+
+var happyfaceSVG, sadfaceSVG;
+
+
+d3.xml("happy.svg").mimeType("image/svg+xml").get(function(error, xml) {
+  if (error) throw error;
+  var happyfaceSVG = jQuery(xml.documentElement);
+  happyfaceSVG.attr("width", 40);
+  happyfaceSVG.attr("height", 50);
+  happyfaceSVG.css("position","absolute")
+  happyfaceSVG.attr("left", 20+x(20));
+  happyfaceSVG.attr("top", 20+y(20));
+  happyfaceSVG.attr("fill-opacity",0.3);
+  happyfaceSVG.attr("style","stroke:black;stroke-opacity:0.7");
+});
+
+
+d3.xml("sad.svg").mimeType("image/svg+xml").get(function(error, xml) {
+  if (error) throw error;
+  var sadfaceSVG = jQuery(xml.documentElement);
+  sadfaceSVG.attr("width", 50);
+  sadfaceSVG.attr("height", 50);
+  sadfaceSVG.css("position","absolute")
+  sadfaceSVG.attr("left", 20+x(20));
+  sadfaceSVG.attr("top", 20+y(20));
+  sadfaceSVG.attr("fill-opacity",0.3);
+  sadfaceSVG.attr("style","stroke:black;stroke-opacity:0.7");
+});
+
+
+
+// newD3.xml("footprintright.svg").mimeType("image/svg+xml").get(function(error, xml) {
+d3.xml("footprintright.svg").mimeType("image/svg+xml").get(function(error, xml) {
+  if (error) throw error;
+  var svgObjectright = jQuery(xml.documentElement);
+  svgObjectright.attr("width", 40);
+  svgObjectright.attr("height", 50);
+  svgObjectright.css("position","absolute")
+  svgObjectright.attr("left", 20+x(20));
+  svgObjectright.attr("top", 20+y(20));
+  svgObjectright.attr("fill-opacity",0.3);
+  svgObjectright.attr("style","stroke:black;stroke-opacity:0.7");
+
+
+
+  svgObjectright.attr("fill","red");
+  createrightFoot(jQuery("#stepsContent"),dataFootStep1,"red");
+  function createrightFoot(obj, data, color)
+  {
+    var leftOffset = 20;
+    jQuery.each(data, function(i,d){
+      console.log(i+"-"+d);
+      var tempx1 = d[1];
+      var tempy1 = d[0];
+      var xx1 = (margin.left+x(tempx1)+leftOffset);
+      var yy1 = (margin.top+y(tempy1));
+      var mydiv1 = jQuery("<div></div>");
+      mydiv1.attr("id","mydiv1");
+      var svgObjecttemp = svgObjectright.clone();
+      svgObjecttemp.attr("fill",color);
+      // svgObjecttemp.attr("fill","blue");
+      mydiv1.append(svgObjecttemp);
+      mydiv1.css("top",yy1+"px");
+      mydiv1.css("left",xx1+"px");
+      mydiv1.css("position","absolute");
+      obj.append(mydiv1);
+    });
+  }
+});
+
+
+    //******** After loading the d3 v3, start loading nvd3 which relies on
+    //******** d3 v3
+    script2.type = 'text/javascript';
+    script2.src = "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js";
+    // script2.src = "http://d3js.org/d3.v4.min.js";
+    script2.addEventListener("load", loadNVd3, false);
+    document.head.appendChild(script2);
+
+}
+
+
+function loadNVd3()
+{
+    //********* after nvd3 is loaded, work on the nvd3 visualization.
+    script3.type = 'text/javascript';
+    script3.src = "../build/nv.d3.js";
+    // script2.src = "http://d3js.org/d3.v4.min.js";
+    script3.addEventListener("load", hrvBox, false);
+    document.head.appendChild(script3);
+}
+
+
+
+//********** load d3 v4 for xml and scaleLinear
+// jQuery("body").addClass("loading");
+script1.type = 'text/javascript';
+script1.src = "http://d3js.org/d3.v4.min.js";
+script1.addEventListener("load", noConflict, false);
+document.head.appendChild(script1);
+
+
+
+
+
+</script>
+</body>
+    <!-- <script src="scatterchart.js" charset="utf-8"></script> -->
+</html>
