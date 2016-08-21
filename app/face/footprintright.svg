@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="412"
+   height="523"
+   viewBox="0 0 412 523"
+   id="svg3043"
+   style="overflow:visible">
+  <defs
+     id="defs3061" />
+  <metadata
+     id="metadata3045">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title></dc:title>
+        <dc:description />
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>symbol</rdf:li>
+            <rdf:li>foot</rdf:li>
+            <rdf:li>shape</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://www.openclipart.org">
+            <dc:title>Benji Park</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Benji Park</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Benji Park</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:date />
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://web.resource.org/cc/PublicDomain" />
+        <dc:language>en</dc:language>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://web.resource.org/cc/PublicDomain">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <path
+     d="m 153.70755,274.394 c -79.165998,-8.333 -65.868998,-131.132 -2.083,-164.583 42.259,-22.162 99.311,-21.194 137.5,-6.25 72.437,28.345 91.666,64.583 102.083,135.417 10.417,70.834 -24.486,258.204 -108.333,279.166 -75,18.75 -103.944,-17.607 -95.833,-52.083 8.333,-35.417 49.408,-81.295 52.083,-112.5 6.25,-72.917 -85.417,-79.167 -85.417,-79.167 z"
+     id="path3047" />
+  <path
+     d="m 12.646552,101.504 c 21.207,30.8 61.446,39.899 89.875998,20.324 28.431,-19.575 34.287,-60.412 13.08,-91.212 -21.206998,-30.8 -61.444998,-39.898 -89.875998,-20.323 -28.4289997,19.575 -34.2859997,60.412 -13.08,91.211 z"
+     id="path3049" />
+  <path
+     d="m 176.12755,82.105 c 18.149,3.09 35.288,-8.655 38.282,-26.236 2.995,-17.581 -8.591,-44.006 -26.739,-47.096 -18.148,-3.092 -35.288,8.655 -38.282,26.236 -2.994,17.581 8.592,44.005 26.739,47.096 z"
+     id="path3051" />
+  <path
+     d="m 234.98255,69.41 c 10.276,14.576 25.334,17.381 40.38,6.774 15.046,-10.607 18.585,-40.858 8.309,-55.435 -10.276,-14.575 -25.333,-17.38 -40.38,-6.773 -15.046,10.607 -18.585,40.858 -8.309,55.434 z"
+     id="path3053" />
+  <path
+     d="m 297.83055,80.36 c 3.157,15.209 18.958,24.79 35.294,21.399 16.336,-3.391 29.616,-26.455 26.459,-41.664 -3.157,-15.209 -18.958,-24.79 -35.293,-21.399 -16.335,3.391 -29.617,26.455 -26.46,41.664 z"
+     id="path3055" />
+  <path
+     d="m 364.19255,102.138 c -9.291,13.857 -7.525,31.324 3.943,39.013 11.468,7.688 28.296,2.688 37.587,-11.17 9.29,-13.857 7.524,-31.324 -3.944,-39.012 -11.468,-7.688 -28.296,-2.688 -37.586,11.169 z"
+     id="path3057" />
+</svg>
