@@ -84,7 +84,8 @@ chart.selectAll(".vline").data(d3.range(21)).enter()
 var xAxis = d3.svg.axis()
 .scale(x)
 .orient('bottom')
-.tickFormat(d3.time.format("%b-%d"));
+.tickFormat(d3.time.format("%b-%d")).
+ticks(d3.time.day,1);
 // .tickArguments([d3.timeDay.every(1)]);
 // .tickArguments([d3.time.day]);
 
