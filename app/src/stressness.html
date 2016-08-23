@@ -19,7 +19,9 @@
         }
         p.toFill{
             float:left;
-            width:100px;
+            /*width:100px;*/
+            /*width:400px;*/
+            width:100%;
             border-style: solid;
             border-width: 2px;
             margin: auto;
@@ -52,7 +54,7 @@
             /*display: inline-block;*/
             display: block;
             /*height: 500px;*/
-            height: 400px;
+            height: 650px;
             /*width: 900px;*/
             width: 100%;
             /*float:left;*/
@@ -66,6 +68,10 @@
             position: relative;
          }*/
          #stepsContent{
+            position:relative;
+         }
+
+         .faceContent{
             position:relative;
          }
 
@@ -123,7 +129,7 @@
           stroke-opacity: 1;
         }
         div.myinline{
-            height:400px;
+            height:500px;
             width:900px;
             display:inline-block;
             vertical-align: top;
@@ -162,19 +168,33 @@
 </div>
 
 <div id="test3" class='mysvg with-3d-shadow with-transitions'>
-   <!--  <p id="stressMessage" class="toFill"></p><br>
+   <!--  <p id="stressMessage" class="toFill"></p><brb>
     <p id="notStressMessage" class="toFill"></p> -->
-    <div class="myinline"><svg></svg></div><div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
-    <p class="toFill notStressMessage"></p></div>
-</div><div class="myinline showFace"></div>
+    <p class="toFill stressMessage"></p><br>
+    <!-- <p class="toFill notStressMessage"></p> -->
+    <div class="myinline">
+    <svg></svg>
+    </div>
+
+    <div class="myinline showFace"></div>
+
+</div>
+
+
 <div id="test4" class='mysvg with-3d-shadow with-transitions'>
     <!-- <p id="stressMessage" class="toFill"></p><br>
     <p id="notStressMessage" class="toFill"></p> -->
    <!--  <p class="toFill stressMessage"></p><br>
     <p class="toFill notStressMessage"></p> -->
-    <div class="myinline"><svg></svg></div>
+    <!-- <div class="myinline"><svg></svg></div>
     <div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
-    <p class="toFill notStressMessage"></p></div>
+    <p class="toFill notStressMessage"></p></div> -->
+    <p class="toFill stressMessage"></p><br>
+    <!-- <p class="toFill notStressMessage"></p> -->
+    <div class="myinline">
+    <svg></svg>
+    </div>
+    <div class="myinline showFace"></div>
 </div>
 
 
@@ -372,68 +392,7 @@ function hrvBox(){
     }
 
 
-function builtFaceChart(builtTarget,xScale, yScale){
 
-
-
-    var margin = {top: 20, right: 15, bottom: 60, left: 60}
-      , width = 960 - margin.left - margin.right
-      , height = 500 - margin.top - margin.bottom;
-
-
-      //****** chart initialization
-    var chart = d3.select(builtTarget)
-        .append('svg:svg')
-        .attr('width', width + margin.right + margin.left)
-        .attr('height', height + margin.top + margin.bottom)
-        .attr('class', 'chart');
-
-    var main = chart.append('g')
-        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-        .attr('width', width)
-        .attr('height', height)
-        .attr('class', 'main');
-
-
-        //vertical lines
-    chart.selectAll(".vline").data(d3.range(21)).enter()
-            .append("line")
-            .attr("x1", function (d) {
-            return d * (width / 6)-width/6/2;
-        })
-        .attr("x2", function (d) {
-        return d * (width / 6)-width/6/2;
-        })
-        .attr("y1", function (d) {
-        return 0;
-        })
-        .attr("y2", function (d) {
-        return height;
-        })
-        .style("stroke", "#c2c2d6")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    var xAxis = d3
-          .axisBottom(x)
-          .ticks(d3.timeDay, 1)
-          .tickFormat(d3.timeFormat("%b-%d"))
-
-    main.append('g')
-        .attr('transform', 'translate(0,' + height + ')')
-        .attr('class', 'main axis date')
-        .call(xAxis);
-
-
-    var yAxis = d3
-          .axisLeft(y);
-
-    main.append('g')
-        .attr('transform', 'translate(0,0)')
-        .attr('class', 'main axis date')
-        .call(yAxis);
-
-
-}
 
 
 
@@ -804,7 +763,13 @@ var script1 = document.createElement("script"),
 
 // console.log(newD3);
 
-function noConflict(){
+// function noConflict(){
+
+
+//***** global variables for later use
+var happyfaceSVG, sadfaceSVG;
+
+function loadSVGasXML(){
     // newD3 = d3;
 var data = [[5,3], [10,17], [15,4], [2,8]];
 var dataFootStep = [[4213, new Date(2016,3,1)],[3340, new Date(2016,3,2)],[2345,
@@ -947,12 +912,11 @@ d3.xml("footprintleft.svg").mimeType("image/svg+xml").get(function(error, xml) {
 });
 
 
-var happyfaceSVG, sadfaceSVG;
 
 
 d3.xml("happy.svg").mimeType("image/svg+xml").get(function(error, xml) {
   if (error) throw error;
-  var happyfaceSVG = jQuery(xml.documentElement);
+  happyfaceSVG = jQuery(xml.documentElement);
   happyfaceSVG.attr("width", 40);
   happyfaceSVG.attr("height", 50);
   happyfaceSVG.css("position","absolute")
@@ -965,7 +929,7 @@ d3.xml("happy.svg").mimeType("image/svg+xml").get(function(error, xml) {
 
 d3.xml("sad.svg").mimeType("image/svg+xml").get(function(error, xml) {
   if (error) throw error;
-  var sadfaceSVG = jQuery(xml.documentElement);
+  sadfaceSVG = jQuery(xml.documentElement);
   sadfaceSVG.attr("width", 50);
   sadfaceSVG.attr("height", 50);
   sadfaceSVG.css("position","absolute")
@@ -1044,7 +1008,7 @@ function loadNVd3()
 // jQuery("body").addClass("loading");
 script1.type = 'text/javascript';
 script1.src = "http://d3js.org/d3.v4.min.js";
-script1.addEventListener("load", noConflict, false);
+script1.addEventListener("load", loadSVGasXML, false);
 document.head.appendChild(script1);
 
 
