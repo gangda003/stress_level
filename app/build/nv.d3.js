@@ -12278,22 +12278,22 @@ nv.models.scatter = function(messageTarget) {
 
 
                                 //vertical lines
-                            chart.selectAll(".vline").data(d3.range(21)).enter()
-                                    .append("line")
-                                    .attr("x1", function (d) {
-                                    return d * (width / 6)-width/6/2;
-                                })
-                                .attr("x2", function (d) {
-                                return d * (width / 6)-width/6/2;
-                                })
-                                .attr("y1", function (d) {
-                                return 0;
-                                })
-                                .attr("y2", function (d) {
-                                return height;
-                                })
-                                .style("stroke", "#c2c2d6")
-                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                            // chart.selectAll(".vline").data(d3.range(21)).enter()
+                            //         .append("line")
+                            //         .attr("x1", function (d) {
+                            //         return d * (width / 6)-width/6/2;
+                            //     })
+                            //     .attr("x2", function (d) {
+                            //     return d * (width / 6)-width/6/2;
+                            //     })
+                            //     .attr("y1", function (d) {
+                            //     return 0;
+                            //     })
+                            //     .attr("y2", function (d) {
+                            //     return height;
+                            //     })
+                            //     .style("stroke", "#c2c2d6")
+                            //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
                             //******* D3.v4
@@ -12546,19 +12546,30 @@ nv.models.scatter = function(messageTarget) {
 
                         var goodData = [], badData = [];
                         jQuery.each(notstressedTimeStamps, function(i, timeStamp){
-                            goodData.push(0.9, timeStamp]);
+                            goodData.push([0.9, timeStamp]);
                         })
 
 
-                        jQuery.each(notstressedTimeStamps, function(i, timeStamp){
-                            goodData.push(0.1, timeStamp]);
+                        jQuery.each(stressedTimeStamps, function(i, timeStamp){
+                            badData.push([0.25, timeStamp]);
                         })
 
+
+                        var minx  = "2016 "+jQuery(".nv-axisMin-x").children().html();
+                        var timeFormat = d3.time.format('%Y %m/%d %H:%M');
+                        var dateObjMin = timeFormat.parse(minx)
+                        var dateMillsMin = +dateObjMin
+
+                        var maxx  = "2016 "+jQuery(".nv-axisMax-x").children().html();
+                        var timeFormat = d3.time.format('%Y %m/%d %H:%M');
+                        var dateObjMax = timeFormat.parse(maxx)
+                        var dateMillsMax = +dateObjMax
 
                         var x = d3.time.scale()
                         // var x = d3.scaleTime()
-                        .domain([d3.max(), maxdate])
+                        .domain([dateMillsMin, dateMillsMax])
                         .range([0, width]);
+                        console.log("length of badData  "+badData.length)
 
                         builtFaceChart(faceTarget,x,y, badData, goodData);
 
