@@ -12256,6 +12256,134 @@ nv.models.scatter = function(messageTarget) {
                 request.params.data = data;
                 request.id = 0;
 
+                function builtFaceChart(builtTarget,x, y,badData,goodData){
+
+                            var margin = {top: 20, right: 15, bottom: 60, left: 60}
+                              , width = 960 - margin.left - margin.right
+                              , height = 450 - margin.top - margin.bottom;
+
+
+                              //****** chart initialization
+                            var chart = d3.select(builtTarget)
+                                .append('svg:svg')
+                                .attr('width', width + margin.right + margin.left)
+                                .attr('height', height + margin.top + margin.bottom)
+                                .attr('class', 'chart');
+
+                            var main = chart.append('g')
+                                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+                                .attr('width', width)
+                                .attr('height', height)
+                                .attr('class', 'main');
+
+
+                                //vertical lines
+                            chart.selectAll(".vline").data(d3.range(21)).enter()
+                                    .append("line")
+                                    .attr("x1", function (d) {
+                                    return d * (width / 6)-width/6/2;
+                                })
+                                .attr("x2", function (d) {
+                                return d * (width / 6)-width/6/2;
+                                })
+                                .attr("y1", function (d) {
+                                return 0;
+                                })
+                                .attr("y2", function (d) {
+                                return height;
+                                })
+                                .style("stroke", "#c2c2d6")
+                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+                            //******* D3.v4
+                            // var xAxis = d3
+                            //       .axisBottom(x)
+                            //       .ticks(d3.timeDay, 1)
+                            //       .tickFormat(d3.timeFormat("%b-%d"))
+
+
+                            var xAxis = d3.svg.axis()
+                            .scale(x)
+                            .orient('bottom')
+                            .tickFormat(d3.time.format("%b-%d")).
+                            ticks(d3.time.day,1);
+
+                            main.append('g')
+                                .attr('transform', 'translate(0,' + height + ')')
+                                .attr('class', 'main axis date')
+                                .call(xAxis);
+
+
+                           // ******* v3 version
+                            var yAxis = d3.svg.axis()
+                            .scale(y)
+                            .orient('left');
+
+                            //****** d3 v4 version
+                            // var yAxis = d3
+                            //       .axisLeft(y);
+
+                            main.append('g')
+                                .attr('transform', 'translate(0,0)')
+                                .attr('class', 'main axis date')
+                                .call(yAxis);
+
+
+
+                            createhappyface(jQuery(builtTarget),goodData);
+                              function createhappyface(obj, data)
+                              {
+                                var leftOffset = 20;
+                                jQuery.each(data, function(i,d){
+                                  console.log(i+"-"+d);
+                                  var tempx1 = d[1];
+                                  var tempy1 = d[0];
+                                  var xx1 = (margin.left+x(tempx1)+leftOffset);
+                                  var yy1 = (margin.top+y(tempy1));
+                                  var mydiv1 = jQuery("<div></div>");
+                                  mydiv1.attr("id","mydiv1");
+                                  var svgObjecttemp = happyfaceSVG.clone();
+                                  // svgObjecttemp.attr("fill",color);
+                                  // svgObjecttemp.attr("fill","blue");
+                                  mydiv1.append(svgObjecttemp);
+                                  mydiv1.css("top",yy1+"px");
+                                  mydiv1.css("left",xx1+"px");
+                                  mydiv1.css("position","absolute");
+                                  obj.append(mydiv1);
+                                });
+                              }
+
+
+                              createsadface( jQuery(builtTarget),badData);
+                              // createLeftFoot(jQuery("body"),dataFootStep1,"red");
+                              function createsadface(obj, data)
+                              {
+                                var leftOffset = 20;
+                                jQuery.each(data, function(i,d){
+                                  console.log(i+"-"+d);
+                                  var tempx1 = d[1];
+                                  var tempy1 = d[0];
+                                  var xx1 = (margin.left+x(tempx1))-leftOffset;
+                                  var yy1 = (margin.top+y(tempy1));
+                                  var mydiv1 = jQuery("<div></div>");
+                                  mydiv1.attr("id","mydiv1");
+                                  var svgObjecttemp = sadfaceSVG.clone();
+                                  // svgObjecttemp.attr("fill",color);
+                                  // svgObjecttemp.attr("fill","blue");
+                                  mydiv1.append(svgObjecttemp);
+                                  mydiv1.css("top",yy1+"px");
+                                  mydiv1.css("left",xx1+"px");
+                                  mydiv1.css("position","absolute");
+                                  obj.append(mydiv1);
+                                });
+                              }
+
+
+                 }
+
+
+
                 function displaySearchResult(response) {
                     if (response.error)
                         console.log("Search error: " + response.error.message);
@@ -12289,7 +12417,7 @@ nv.models.scatter = function(messageTarget) {
 
 
                             var timeFormatToShow = d3.time.format("%a %m-%d %H:%M");
-
+                            var returnTimeStamps = [];
 
 
 
@@ -12320,6 +12448,8 @@ nv.models.scatter = function(messageTarget) {
                             (clusterCenter - offsetStart)/(offsetEnd - offsetStart)*(dateMillsMax - dateMillsMin)
                             + dateMillsMin;
 
+                            returnTimeStamps.push(timeMills);
+
                             console.log("timeMills "+timeMills+", "+clusterCenter+", "+offsetStart+
                                 ", "+offsetEnd);
                             var timeStamp = timeFormatToShow(new Date(timeMills));
@@ -12344,40 +12474,93 @@ nv.models.scatter = function(messageTarget) {
                             });
                             // var classStart = "test1";
                             var classStart = messageTarget;
-                            var target = "#"+classStart+" ."+updateTargetStr;
+                            // var target = "#"+classStart+" ."+updateTargetStr;
+                            var target = "#"+classStart+" ."+'stressMessage';
                             // jQuery(updateTargetStr).html("<h3>"+stressDateStr+"</h3>");
-                            jQuery(target).html("<h3>"+stressDateStr+"</h3>");
+                            var updateStr;
+                            if(jQuery(target).html()==="")
+                            {
+                                updateStr = "<h3>"+stressDateStr+"</h3>";
+                            }
+                            else
+                            {
+                                updateStr = jQuery(target).html()+"<br><h3>"+stressDateStr+"</h3>";
+                            }
+                            jQuery(target).html(jQuery(target).html()+"<h3>"+stressDateStr+"</h3>");
                             console.log("stressDateStr end: "+  stressDateStr);
 
-                            //******show face graph
-                            var faceTarget = "#"+classStart+" ."+"showFace";
-
-                            var x = d3.time.scale()
-                            // var x = d3.scaleTime()
-                            .domain([mindate, maxdate])
-                            .range([0, width]);
-
-
-
-                            // var y = d3.scaleLinear()
-                            var y = d3.scale.linear()
-                                      .domain([0, 10000])
-                                      .range([ height, 0 ]);
-
-
-                            builtFaceChart(faceTarget,x,y)
 
 
 
                             console.log(dateMillsMin+", "+dateMillsMax);
+                            return returnTimeStamps;
                         }//end displaybox
                         var result = response.result;
                         console.log("result.stress"+result.stress);
                         console.log("result.notStressed"+result.notStressed);
+
+                        var stressedTimeStamps, notstressedTimeStamps;
                         if(typeof result.stress !== "undefined")
-                        displayBox(result.stress, '#ff9999', 1);
+                        stressedTimeStamps = displayBox(result.stress, '#ff9999', 1);
                         if(typeof result.notStressed !== "undefined")
-                        displayBox(result.notStressed, '#99ffcc', 2);
+                        notstressedTimeStamps = displayBox(result.notStressed, '#99ffcc', 2);
+
+                      //******show face graph
+                        var classStart = messageTarget;
+                        var faceTarget = "#"+classStart+" ."+"showFace";
+                        var margin = {top: 20, right: 15, bottom: 60, left: 60}
+                      , width = 960 - margin.left - margin.right
+                      , height = 450 - margin.top - margin.bottom;
+                        var mindate = new Date(2016,2,31),
+                        maxdate = new Date(2016,3,6);
+
+
+                        // var x = d3.time.scale()
+                        // // var x = d3.scaleTime()
+                        // .domain([mindate, maxdate])
+                        // .range([0, width]);
+
+
+
+                        // var y = d3.scaleLinear()
+                        // var y = d3.scale.linear()
+                        //           .domain([0, 10000])
+                        //           .range([ height, 0 ]);
+
+                        var y = d3.scale.linear()
+                                  .domain([0, 1])
+                                  .range([ height, 0 ]);
+
+
+
+                        console.log("showface");
+
+
+                        // var goodData = [[4213, new Date(2016,3,1)],[3340, new Date(2016,3,2)],[2345,
+                        // new Date(2016,3,3)],[6756, new Date(2016,3,4)],[5543, new Date(2016,3,5)]];
+
+
+                        // var badData = [[2450, new Date(2016,3,1)],[6262, new Date(2016,3,2)],[4360,
+                        // new Date(2016,3,3)],[5644,  1459753200000],[8810, new Date(2016,3,5)]];
+
+
+                        var goodData = [], badData = [];
+                        jQuery.each(notstressedTimeStamps, function(i, timeStamp){
+                            goodData.push(0.9, timeStamp]);
+                        })
+
+
+                        jQuery.each(notstressedTimeStamps, function(i, timeStamp){
+                            goodData.push(0.1, timeStamp]);
+                        })
+
+
+                        var x = d3.time.scale()
+                        // var x = d3.scaleTime()
+                        .domain([d3.max(), maxdate])
+                        .range([0, width]);
+
+                        builtFaceChart(faceTarget,x,y, badData, goodData);
 
 
 

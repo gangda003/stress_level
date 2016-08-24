@@ -74,6 +74,9 @@
          .faceContent{
             position:relative;
          }
+         .showFace{
+            position:relative;
+         }
 
         /*.modal {
         display:    none;
@@ -673,7 +676,7 @@ function hrvBox(){
     // fetch_data_Scatter("test1", device_id1, method1 );
     // fetch_data_Scatter("test2", device_id2, method1);
      fetch_data_Scatter("test3", device_id2, method2);
-     fetch_data_Scatter("test4", device_id3, method2);
+     // fetch_data_Scatter("test4", device_id3, method2);
     // fetch_data_bar("test5",device_id1, method1);
     // fetch_data_bar("test6",device_id2, method1);
     // fetch_data2();
@@ -768,6 +771,10 @@ var script1 = document.createElement("script"),
 
 //***** global variables for later use
 var happyfaceSVG, sadfaceSVG;
+
+
+
+
 
 function loadSVGasXML(){
     // newD3 = d3;
@@ -935,7 +942,7 @@ d3.xml("sad.svg").mimeType("image/svg+xml").get(function(error, xml) {
   sadfaceSVG.css("position","absolute")
   sadfaceSVG.attr("left", 20+x(20));
   sadfaceSVG.attr("top", 20+y(20));
-  sadfaceSVG.attr("fill-opacity",0.3);
+  sadfaceSVG.attr("fill-opacity",0.8);
   sadfaceSVG.attr("style","stroke:black;stroke-opacity:0.7");
 });
 
@@ -981,6 +988,9 @@ d3.xml("footprintright.svg").mimeType("image/svg+xml").get(function(error, xml) 
 });
 
 
+
+
+
     //******** After loading the d3 v3, start loading nvd3 which relies on
     //******** d3 v3
     script2.type = 'text/javascript';
@@ -992,12 +1002,232 @@ d3.xml("footprintright.svg").mimeType("image/svg+xml").get(function(error, xml) 
 }
 
 
+function tempLoadFaceChart(){
+
+
+var goodData = [[4213, new Date(2016,3,1)],[3340, new Date(2016,3,2)],[2345,
+    new Date(2016,3,3)],[6756, new Date(2016,3,4)],[5543, new Date(2016,3,5)]];
+
+
+var badData = [[2450, new Date(2016,3,1)],[6262, new Date(2016,3,2)],[4360,
+    new Date(2016,3,3)],[5644,  1459753200000],[8810, new Date(2016,3,5)]];
+
+
+var classStart = "test3";
+var tempBuiltTarget =  "#"+classStart+" ."+"showFace";
+var margin = {top: 20, right: 15, bottom: 60, left: 60}
+      , width = 960 - margin.left - margin.right
+      , height = 450 - margin.top - margin.bottom;
+var mindate = new Date(2016,2,31),
+    maxdate = new Date(2016,3,6);
+
+
+var xScale = d3.time.scale()
+    .domain([mindate, maxdate])
+    .range([0, width]);
+
+
+
+var yScale = d3.scale.linear()
+          .domain([0, 10000])
+          .range([ height, 0 ]);
+
+
+builtFaceChart(tempBuiltTarget,xScale,yScale, badData, goodData );
+function builtFaceChart(builtTarget,x, y,badData,goodData){
+
+                            var margin = {top: 20, right: 15, bottom: 60, left: 60}
+                              , width = 960 - margin.left - margin.right
+                              , height = 450 - margin.top - margin.bottom;
+
+
+                              //****** chart initialization
+                            var chart = d3.select(builtTarget)
+                                .append('svg:svg')
+                                .attr('width', width + margin.right + margin.left)
+                                .attr('height', height + margin.top + margin.bottom)
+                                .attr('class', 'chart');
+
+                            var main = chart.append('g')
+                                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+                                .attr('width', width)
+                                .attr('height', height)
+                                .attr('class', 'main');
+
+
+                                //vertical lines
+                            chart.selectAll(".vline").data(d3.range(21)).enter()
+                                    .append("line")
+                                    .attr("x1", function (d) {
+                                    return d * (width / 6)-width/6/2;
+                                })
+                                .attr("x2", function (d) {
+                                return d * (width / 6)-width/6/2;
+                                })
+                                .attr("y1", function (d) {
+                                return 0;
+                                })
+                                .attr("y2", function (d) {
+                                return height;
+                                })
+                                .style("stroke", "#c2c2d6")
+                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+                            //******* D3.v4
+                            // var xAxis = d3
+                            //       .axisBottom(x)
+                            //       .ticks(d3.timeDay, 1)
+                            //       .tickFormat(d3.timeFormat("%b-%d"))
+
+
+                            var xAxis = d3.svg.axis()
+                            .scale(xScale)
+                            .orient('bottom')
+                            .tickFormat(d3.time.format("%b-%d")).
+                            ticks(d3.time.day,1);
+
+                            main.append('g')
+                                .attr('transform', 'translate(0,' + height + ')')
+                                .attr('class', 'main axis date')
+                                .call(xAxis);
+
+
+                           // ******* v3 version
+                            var yAxis = d3.svg.axis()
+                            .scale(yScale)
+                            .orient('left');
+
+                            //****** d3 v4 version
+                            // var yAxis = d3
+                            //       .axisLeft(y);
+
+                            main.append('g')
+                                .attr('transform', 'translate(0,0)')
+                                .attr('class', 'main axis date')
+                                .call(yAxis);
+
+
+
+                            createhappyface(jQuery(builtTarget),goodData);
+                              function createhappyface(obj, data)
+                              {
+                                var leftOffset = 20;
+                                jQuery.each(data, function(i,d){
+                                  console.log(i+"-"+d);
+                                  var tempx1 = d[1];
+                                  var tempy1 = d[0];
+                                  var xx1 = (margin.left+x(tempx1)+leftOffset);
+                                  var yy1 = (margin.top+y(tempy1));
+                                  var mydiv1 = jQuery("<div></div>");
+                                  mydiv1.attr("id","mydiv1");
+                                  var svgObjecttemp = happyfaceSVG.clone();
+                                  // svgObjecttemp.attr("fill",color);
+                                  // svgObjecttemp.attr("fill","blue");
+                                  mydiv1.append(svgObjecttemp);
+                                  mydiv1.css("top",yy1+"px");
+                                  mydiv1.css("left",xx1+"px");
+                                  mydiv1.css("position","absolute");
+                                  obj.append(mydiv1);
+                                });
+                              }
+
+
+                              createsadface( jQuery(builtTarget),badData);
+                              // createLeftFoot(jQuery("body"),dataFootStep1,"red");
+                              function createsadface(obj, data)
+                              {
+                                var leftOffset = 20;
+                                jQuery.each(data, function(i,d){
+                                  console.log(i+"-"+d);
+                                  var tempx1 = d[1];
+                                  var tempy1 = d[0];
+                                  var xx1 = (margin.left+x(tempx1))-leftOffset;
+                                  var yy1 = (margin.top+y(tempy1));
+                                  var mydiv1 = jQuery("<div></div>");
+                                  mydiv1.attr("id","mydiv1");
+                                  var svgObjecttemp = sadfaceSVG.clone();
+                                  // svgObjecttemp.attr("fill",color);
+                                  // svgObjecttemp.attr("fill","blue");
+                                  mydiv1.append(svgObjecttemp);
+                                  mydiv1.css("top",yy1+"px");
+                                  mydiv1.css("left",xx1+"px");
+                                  mydiv1.css("position","absolute");
+                                  obj.append(mydiv1);
+                                });
+                              }
+
+
+    }
+}
+
+
 function loadNVd3()
 {
+
+
+
+    //*****TESTCODE-test_why_ugly_sad_face
+    // var margin = {top: 20, right: 15, bottom: 60, left: 60}
+    //       , width = 960 - margin.left - margin.right
+    //       , height = 500 - margin.top - margin.bottom;
+
+    //     var mindate = new Date(2016,2,31),
+    //         maxdate = new Date(2016,3,6);
+    //     // var x = d3.time.scale()
+    //     var x = d3.time.scale()
+    //           .domain([mindate, maxdate])
+    //     .range([0, width]);
+
+
+
+    //     var y = d3.scale.linear()
+    //               .domain([0, 10000])
+    //               .range([ height, 0 ]);
+
+
+    // d3.xml("happy.svg","image/svg+xml", function(error, xml) {
+
+    // // d3.xml("happy.svg").mimeType("image/svg+xml").get(function(error, xml) {
+    //   if (error) throw error;
+    //   happyfaceSVG = jQuery(xml.documentElement);
+    //   happyfaceSVG.attr("width", 40);
+    //   happyfaceSVG.attr("height", 50);
+    //   happyfaceSVG.css("position","absolute")
+    //   happyfaceSVG.attr("left", 20+x(20));
+    //   happyfaceSVG.attr("top", 20+y(20));
+    //   // happyfaceSVG.attr("fill-opacity",0.3);
+    //   happyfaceSVG.attr("style","stroke:black;stroke-opacity:0.7");
+    // });
+
+
+    // // d3.xml("sad.svg").mimeType("image/svg+xml").get(function(error, xml) {
+    // d3.xml("sad.svg","image/svg+xml", function(error, xml) {
+    //   if (error) throw error;
+    //   sadfaceSVG = jQuery(xml.documentElement);
+    //   sadfaceSVG.attr("width", 50);
+    //   sadfaceSVG.attr("height", 50);
+    //   sadfaceSVG.css("position","absolute")
+    //   sadfaceSVG.attr("left", 20+x(20));
+    //   sadfaceSVG.attr("top", 20+y(20));
+    //    sadfaceSVG.attr("fill-opacity",0.8);
+    //   sadfaceSVG.attr("style","stroke:black;stroke-opacity:0.7");
+    // });
+
+
+
+    // window.setTimeout(tempLoadFaceChart, 300);
+    //*****ENDTESTCODE
+    //
+
+    // tempLoadFaceChart();
     //********* after nvd3 is loaded, work on the nvd3 visualization.
     script3.type = 'text/javascript';
     script3.src = "../build/nv.d3.js";
     // script2.src = "http://d3js.org/d3.v4.min.js";
+    //
+
+    //****** tempComment to test
     script3.addEventListener("load", hrvBox, false);
     document.head.appendChild(script3);
 }
