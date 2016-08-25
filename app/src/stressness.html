@@ -217,43 +217,43 @@
 
 
 
-<div id="test5" class='mysvg with-3d-shadow with-transitions'>
-   <!--  <div class="myinline"><svg></svg></div><div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
+<!-- <div id="test5" class='mysvg with-3d-shadow with-transitions'>
+    <div class="myinline"><svg></svg></div><div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
     <p class="toFill notStressMessage"></p></div>
 </div>
 <div id="test6" class='mysvg with-3d-shadow with-transitions'>
     <div class="myinline"><svg></svg></div>
     <div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
-    <p class="toFill notStressMessage"></p></div> -->
-    <p class="toFill stressMessage"></p><br>
-    <!-- <p class="toFill notStressMessage"></p> -->
+    <p class="toFill notStressMessage"></p></div>
+    <p class="toFill stressMessage"></p><br> -->
+    <!-- <p class="toFill notStressMessage"></p>
     <div class="myinline">
     <svg></svg>
     </div>
     <div class="myinline showFace"></div>
-</div>
+</div> -->
 
 
 
-<!-- <div id="test5" class='barchartsvg with-3d-shadow with-transitions'>
+<div id="test5" class='barchartsvg with-3d-shadow with-transitions'>
     <svg></svg>
 </div><div id="test6" class='barchartsvg with-3d-shadow with-transitions'>
     <svg></svg>
-</div> -->
+</div>
 
-
-<!-- <div id="test7" class='barchartsvg with-3d-shadow with-transitions'>
-    <svg></svg>
-</div> -->
 
 <div id="test7" class='barchartsvg with-3d-shadow with-transitions'>
+    <svg></svg>
+</div>
+
+<!-- <div id="test7" class='barchartsvg with-3d-shadow with-transitions'>
     <p class="toFill stressMessage"></p><br>
-    <!-- <p class="toFill notStressMessage"></p> -->
+    <p class="toFill notStressMessage"></p>
     <div class="myinline">
     <svg></svg>
     </div>
     <div class="myinline showFace"></div>
-</div>
+</div> -->
 
 
 
@@ -491,6 +491,7 @@ function hrvBox(){
               // .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
               // // .tooltips(false)        //Don't show tooltips
               .showValues(true)       //...instead, show the bar value right on top of each bar.
+              .color( function(d){ return '#99cc00'} )
               // .transitionDuration(350)
               ;
           d3.select(svgUpdateTarget).html('');
@@ -714,12 +715,12 @@ function hrvBox(){
     // fetch_data_Scatter("test2", device_id2, method1);
      fetch_data_Scatter("test3", device_id2, method2);
      fetch_data_Scatter("test4", device_id3, method2);
-    // fetch_data_bar("test5",device_id1, method1);
+     // fetch_data_bar("test5",device_id1, method1);
     // fetch_data_bar("test6",device_id2, method1);
     // fetch_data2();
     // fetch_data3();
     // fetch_data4();
-    // showHorizontalBarChart("data", "test7");
+     // showHorizontalBarChart("data", "test7");
 
     var numberCalls = 2
     var ajaxCallsRemaining = numberCalls;
@@ -732,46 +733,46 @@ function hrvBox(){
     ajaxMethods.push(method1);
     var request
 
-    // for (var i = 0; i < numberCalls; i++) {
+    for (var i = 0; i < numberCalls; i++) {
 
-    //     var request = {};
-    //     request.jsonrpc = "2.0";
-    //     request.params = {};
-    //     // request.method = method;
-    //     request.method = ajaxMethods[i];
-    //     request.params.device_id = device_ids[i];
-    //     request.id = 0;
-    //     // var targetToUpdate = updateTarget;
+        var request = {};
+        request.jsonrpc = "2.0";
+        request.params = {};
+        // request.method = method;
+        request.method = ajaxMethods[i];
+        request.params.device_id = device_ids[i];
+        request.id = 0;
+        // var targetToUpdate = updateTarget;
 
-    //     function displaySearchResult(response) {
-    //         if (response.error)
-    //                 alert("Search error: " + response.error.message);
-    //         else{
-    //             result = response.result;
-    //             // showBarChart(result, targetToUpdate);
-    //             dataStore.push(result);
-    //         }
-    //          --ajaxCallsRemaining;
-    //         if (ajaxCallsRemaining <= 0) {
-    //              showHorizontalBarChart(dataStore, "test7");
-    //              showData(dataStore[0], "test1");
-    //              showData(dataStore[1], "test2");
-    //              showBarChart(dataStore[0], "test5");
-    //              showBarChart(dataStore[1], "test6");
-    //              jQuery("body").removeClass("loading");
-    //         }
-    //     };
+        function displaySearchResult(response) {
+            if (response.error)
+                    alert("Search error: " + response.error.message);
+            else{
+                result = response.result;
+                // showBarChart(result, targetToUpdate);
+                dataStore.push(result);
+            }
+             --ajaxCallsRemaining;
+            if (ajaxCallsRemaining <= 0) {
+                 showHorizontalBarChart(dataStore, "test7");
+                 showData(dataStore[0], "test1");
+                 showData(dataStore[1], "test2");
+                 showBarChart(dataStore[0], "test5");
+                 showBarChart(dataStore[1], "test6");
+                 jQuery("body").removeClass("loading");
+            }
+        };
 
-    //     jQuery.ajax({
-    //       url:url,
-    //       type:"POST",
-    //       data:JSON.stringify(request),
-    //       contentType:"application/json; charset=utf-8",
-    //       dataType:"json",
-    //       success: displaySearchResult
-    //     });
+        jQuery.ajax({
+          url:url,
+          type:"POST",
+          data:JSON.stringify(request),
+          contentType:"application/json; charset=utf-8",
+          dataType:"json",
+          success: displaySearchResult
+        });
 
-    // }
+    }
 
 }
 
@@ -808,6 +809,28 @@ var script1 = document.createElement("script"),
 
 //***** global variables for later use
 var happyfaceSVG, sadfaceSVG;
+
+if(jQuery(window).width()<1835)
+{
+    jQuery(".mysvg").css("height","1050px");
+}
+else{
+    jQuery(".mysvg").css("height","650px");
+}
+
+
+window.onresize = function() {
+//your code
+    if(jQuery(window).width()<1835)
+    {
+        jQuery(".mysvg").css("height","1050px");
+    }
+    else{
+        jQuery(".mysvg").css("height","650px");
+    }
+}
+
+
 
 
 

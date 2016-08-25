@@ -12330,6 +12330,18 @@ nv.models.scatter = function(messageTarget) {
                                 .call(yAxis);
 
 
+                            var padding = 50;
+                            main.append("text")
+                            .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+                            .attr("transform", "translate("+ (padding/2) +","+(height/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+                            .text("Stress Level");
+
+                            main.append("text")
+                            .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+                            .attr("transform", "translate("+ (width/2) +","+(height-(padding/3))+")")  // centre below axis
+                            .text("Date");
+
+
 
                             createhappyface(jQuery(builtTarget),goodData);
                               function createhappyface(obj, data)
