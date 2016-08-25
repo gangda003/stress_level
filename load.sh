@@ -1,0 +1,1 @@
+java -jar ~/Documents/node/nodeProject/sqlworkbench.jar -url="jdbc:redshift://phdev-redshift.nokiawear.com:5439/phcloud?ssl=true&sslfactory=com.amazon.redshift.ssl.NonValidatingFactory" -driver=com.amazon.redshift.jdbc41.Driver -username=zhenpeng -password=1ntPH5mr -driverjar=RedshiftJDBC41-1.1.10.1010.jar -script='export.sql'

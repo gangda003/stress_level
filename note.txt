@@ -1,0 +1,19 @@
+Programming Notes
+
+The text interpretation on the right is because the width of the browser is not enough.
+
+ 
+1. Draw the chart when d3.3.5 verison is loaded
+2. CHeck what version of D3 is used by builtfacechart function
+3. D3.xml requires d3.v4, nvd3 requires d3.v3
+4. The x and y range has abilities to fit with both version
+5. Setup  three stages scripting importing first import d3.v4 for xml import svg.
+6. Load d3.min.js with 3.5.2 version and then load NV.d3  because  NVD3 only works with d3 v3
+7. CHanged from loading d3.v4 and d3.v3 async to all the code to v3 version with out async loading.
+8. The hard challenge is that later loading the nvd3 visualization and the face vis all requires d3.v3
+9. Change builtfacechart to v3 version
+10. Add builtfacechart to callback/show bounding box part
+11. Trying to draw happy and sad face in the chart. Figuring out why happyfaceSVG and sadfaceSVG are not visiable as global variable
+12. Figured out 11. becasue they are declared as local variable during evaluation.
+13. Connect builtfaceChart with data, using goodData and badData from the very beginning.
+14.  Bulit a mockup builtfaceChart example on the first load without doing the ajax call to debug the face chart
