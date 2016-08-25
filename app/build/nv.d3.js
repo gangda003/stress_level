@@ -11957,36 +11957,6 @@ nv.models.scatter = function(messageTarget) {
              gEnter.append('g').attr('class', 'nv-groups');
              var nvGroups = gEnter.append('g');
              nvGroups.attr('class', 'nv-groups');
-            // var rect1 = nvGroups.append("path")
-            //  .style('fill','#b3ecff')
-            //  .style('stroke-opacity', 1)
-            //  .style('fill-opacity', .4)
-            //  .attr("d", rightRoundedRect(1175, 868, 71, 112, 10));
-
-            //  var nvGroups = gEnter.append('g');
-            // nvGroups.attr('class', 'nv-groups');
-            // var rect1 = nvGroups.append("path")
-            //  .style('fill','#b3ecff')
-            //  .style('stroke-opacity', 1)
-            //  .style('fill-opacity', .4)
-            //  .attr("d", rightRoundedRect(892.8730888207698, 876.645890853873, 22.650043924412557, 66.35716931858099, 10));
-
-            //  var nvGroups = gEnter.append('g');
-            // nvGroups.attr('class', 'nv-groups');
-            // var rect1 = nvGroups.append("path")
-            //  .style('fill','#b3ecff')
-            //  .style('stroke-opacity', 1)
-            //  .style('fill-opacity', .4)
-            //  .attr("d", rightRoundedRect(482.1150539242257, 838.4101574384001, 56.24135530177006, 145.931527903296, 10));
-
-            //  var nvGroups = gEnter.append('g');
-            // nvGroups.attr('class', 'nv-groups');
-            // var rect1 = nvGroups.append("path")
-            //  .style('fill','#b3ecff')
-            //  .style('stroke-opacity', 1)
-            //  .style('fill-opacity', .4)
-            //  .attr("d", rightRoundedRect(131.15449944860845, 840.2030342633952, 148.42345236537633, 163.79696573660476, 10));
-
 
 
             gEnter.append('g').attr('class', 'nv-point-paths');
@@ -12277,31 +12247,6 @@ nv.models.scatter = function(messageTarget) {
                                 .attr('class', 'main');
 
 
-                                //vertical lines
-                            // chart.selectAll(".vline").data(d3.range(21)).enter()
-                            //         .append("line")
-                            //         .attr("x1", function (d) {
-                            //         return d * (width / 6)-width/6/2;
-                            //     })
-                            //     .attr("x2", function (d) {
-                            //     return d * (width / 6)-width/6/2;
-                            //     })
-                            //     .attr("y1", function (d) {
-                            //     return 0;
-                            //     })
-                            //     .attr("y2", function (d) {
-                            //     return height;
-                            //     })
-                            //     .style("stroke", "#c2c2d6")
-                            //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-                            //******* D3.v4
-                            // var xAxis = d3
-                            //       .axisBottom(x)
-                            //       .ticks(d3.timeDay, 1)
-                            //       .tickFormat(d3.timeFormat("%b-%d"))
-
 
                             var xAxis = d3.svg.axis()
                             .scale(x)
@@ -12527,18 +12472,6 @@ nv.models.scatter = function(messageTarget) {
                         maxdate = new Date(2016,3,6);
 
 
-                        // var x = d3.time.scale()
-                        // // var x = d3.scaleTime()
-                        // .domain([mindate, maxdate])
-                        // .range([0, width]);
-
-
-
-                        // var y = d3.scaleLinear()
-                        // var y = d3.scale.linear()
-                        //           .domain([0, 10000])
-                        //           .range([ height, 0 ]);
-
                         var y = d3.scale.linear()
                                   .domain([0, 1])
                                   .range([ height, 0 ]);
@@ -12546,14 +12479,6 @@ nv.models.scatter = function(messageTarget) {
 
 
                         console.log("showface");
-
-
-                        // var goodData = [[4213, new Date(2016,3,1)],[3340, new Date(2016,3,2)],[2345,
-                        // new Date(2016,3,3)],[6756, new Date(2016,3,4)],[5543, new Date(2016,3,5)]];
-
-
-                        // var badData = [[2450, new Date(2016,3,1)],[6262, new Date(2016,3,2)],[4360,
-                        // new Date(2016,3,3)],[5644,  1459753200000],[8810, new Date(2016,3,5)]];
 
 
                         var goodData = [], badData = [];
@@ -12622,10 +12547,7 @@ nv.models.scatter = function(messageTarget) {
                     if(y>max){
                         max = y;
                     }
-                    // console.log(x+", "+y);
 
-                    // if(y>400){
-                    // console.log(x+", "+y);
                     pointsToSend.push([nv.utils.NaNtoZero(x0(getX(d[0],d[1]))),
                                         nv.utils.NaNtoZero(y0(getY(d[0],d[1])))]);
                     // }

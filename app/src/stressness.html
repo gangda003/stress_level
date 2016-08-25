@@ -4,11 +4,7 @@
     <meta charset="utf-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
-    <!-- <script src="../build/nv.d3.js"></script> -->
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script> -->
-    <!-- <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
@@ -78,19 +74,6 @@
             position:relative;
          }
 
-        /*.modal {
-        display:    none;
-        position:   fixed;
-        z-index:    1000;
-        top:        0;
-        left:       0;
-        height:     100%;
-        width:      100%;
-        background: rgba( 255, 255, 255, .8 )
-                url('http://i.stack.imgur.com/FhHRx.gif')
-                50% 50%
-                no-repeat;
-        }*/
 
         .modal {
         /* some styles to position the modal at the center of the page */
@@ -144,24 +127,9 @@
 
 
 
-<!-- <div id="test1" class='mysvg with-3d-shadow with-transitions'>
-    <p class="toFill notStressMessage"></p>
-    <svg></svg>
-</div><div id="test2" class='mysvg with-3d-shadow with-transitions'>
-    <p class="toFill stressMessage"></p><br>
-    <p class="toFill notStressMessage"></p>
-    <svg></svg>
-</div> -->
-
-
 <div id="test1" class='mysvg with-3d-shadow with-transitions'>
-   <!--  <p id="stressMessage" class="toFill"></p><br>
-    <p id="notStressMessage" class="toFill"></p> -->
-  <!--   <div class="myinline"><svg></svg></div><div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
-    <p class="toFill notStressMessage"></p></div> -->
 
     <p class="toFill stressMessage"></p><br>
-    <!-- <p class="toFill notStressMessage"></p> -->
     <div class="myinline">
     <svg></svg>
     </div>
@@ -170,15 +138,8 @@
 
 
 <div id="test2" class='mysvg with-3d-shadow with-transitions'>
-    <!-- <p id="stressMessage" class="toFill"></p><br>
-    <p id="notStressMessage" class="toFill"></p> -->
-   <!--  <p class="toFill stressMessage"></p><br>
-    <p class="toFill notStressMessage"></p> -->
-   <!--  <div class="myinline"><svg></svg></div>
-    <div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
-    <p class="toFill notStressMessage"></p></div> -->
+
     <p class="toFill stressMessage"></p><br>
-    <!-- <p class="toFill notStressMessage"></p> -->
     <div class="myinline">
     <svg></svg>
     </div>
@@ -186,10 +147,7 @@
 </div>
 
 <div id="test3" class='mysvg with-3d-shadow with-transitions'>
-   <!--  <p id="stressMessage" class="toFill"></p><brb>
-    <p id="notStressMessage" class="toFill"></p> -->
     <p class="toFill stressMessage"></p><br>
-    <!-- <p class="toFill notStressMessage"></p> -->
     <div class="myinline">
     <svg></svg>
     </div>
@@ -200,13 +158,6 @@
 
 
 <div id="test4" class='mysvg with-3d-shadow with-transitions'>
-    <!-- <p id="stressMessage" class="toFill"></p><br>
-    <p id="notStressMessage" class="toFill"></p> -->
-   <!--  <p class="toFill stressMessage"></p><br>
-    <p class="toFill notStressMessage"></p> -->
-    <!-- <div class="myinline"><svg></svg></div>
-    <div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
-    <p class="toFill notStressMessage"></p></div> -->
     <p class="toFill stressMessage"></p><br>
     <!-- <p class="toFill notStressMessage"></p> -->
     <div class="myinline">
@@ -216,22 +167,6 @@
 </div>
 
 
-
-<!-- <div id="test5" class='mysvg with-3d-shadow with-transitions'>
-    <div class="myinline"><svg></svg></div><div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
-    <p class="toFill notStressMessage"></p></div>
-</div>
-<div id="test6" class='mysvg with-3d-shadow with-transitions'>
-    <div class="myinline"><svg></svg></div>
-    <div class="myinline" id="rightbox"><p class="toFill stressMessage"></p><br>
-    <p class="toFill notStressMessage"></p></div>
-    <p class="toFill stressMessage"></p><br> -->
-    <!-- <p class="toFill notStressMessage"></p>
-    <div class="myinline">
-    <svg></svg>
-    </div>
-    <div class="myinline showFace"></div>
-</div> -->
 
 
 
@@ -245,15 +180,6 @@
 <div id="test7" class='barchartsvg with-3d-shadow with-transitions'>
     <svg></svg>
 </div>
-
-<!-- <div id="test7" class='barchartsvg with-3d-shadow with-transitions'>
-    <p class="toFill stressMessage"></p><br>
-    <p class="toFill notStressMessage"></p>
-    <div class="myinline">
-    <svg></svg>
-    </div>
-    <div class="myinline showFace"></div>
-</div> -->
 
 
 
@@ -362,10 +288,6 @@ function hrvBox(){
         var chart1;
         nv.addGraph(function() {
             chart1 = nv.models.scatterChart(updateTarget)
-             // .showDistX(true)
-            // .showDistY(true)
-            // .useVoronoi(true)
-            // .color(colorArray)
             .color(colorArray_simple)
             .duration(300)
             .pointRange([30, 100])
@@ -390,32 +312,12 @@ function hrvBox(){
 
 
             var svgUpdateTarget = "#"+updateTarget+" svg";
-            // d3.select('#test1 svg').html('');
-            // svg = d3.select('#test1 svg')
-            //     .datum(returnData)
-            //     .call(chart1);
 
             d3.select(svgUpdateTarget).html('');
             svg = d3.select(svgUpdateTarget)
                 .datum(returnData)
                 .call(chart1);
 
-
-            // d3.select('#test2 svg').html('');
-            // svg = d3.select('#test2 svg')
-            //     .datum(returnData)
-            //     .call(chart1);
-
-            // d3.select('#test3 svg').html('');
-            // svg = d3.select('#test3 svg')
-            //     .datum(returnData)
-            //     .call(chart);
-
-
-            // d3.select('#test4 svg').html('');
-            // svg = d3.select('#test4 svg')
-            //     .datum(returnData)
-            //     .call(chart);
 
             console.log("load data");
             nv.utils.windowResize(chart1.update);
@@ -442,18 +344,11 @@ function hrvBox(){
             request.jsonrpc = "2.0";
             request.params = {};
             request.method = method;
-            // request.method = 'fetchDataOneDay';
-            // request.params.device_id = "14AA930C-9414-7272-5359-AF5D370AC840";
             request.params.device_id = device_id;
 
 
-            // var dateVal = jQuery("#datepicker").val();
-            // request.params.startDate = dateVal;
-            // console.log(dateVal);
-            // request.params.value = value;
              request.id = 0;
 
-             // var targetToUpdate = "test1";
              var targetToUpdate = updateTarget;
 
             function displaySearchResult(response) {
@@ -488,11 +383,8 @@ function hrvBox(){
           var chart = nv.models.discreteBarChart()
               .x(function(d) { return d.label })    //Specify the data accessors.
               .y(function(d) { return d.value })
-              // .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
-              // // .tooltips(false)        //Don't show tooltips
               .showValues(true)       //...instead, show the bar value right on top of each bar.
               .color( function(d){ return '#99cc00'} )
-              // .transitionDuration(350)
               ;
           d3.select(svgUpdateTarget).html('');
           d3.select(svgUpdateTarget)
@@ -566,15 +458,8 @@ function hrvBox(){
             request.jsonrpc = "2.0";
             request.params = {};
             request.method = method;
-            // request.method = 'fetchDataOneDay';
-            // request.params.device_id = "14AA930C-9414-7272-5359-AF5D370AC840";
             request.params.device_id = device_id;
 
-
-            // var dateVal = jQuery("#datepicker").val();
-            // request.params.startDate = dateVal;
-            // console.log(dateVal);
-            // request.params.value = value;
              request.id = 0;
 
              // var targetToUpdate = "test1";
@@ -621,7 +506,6 @@ function hrvBox(){
         d3.select(svgUpdateTarget)
             .datum(getDataStore(dataStore))
             .call(chart);
-         // nv.utils.windowResize(chart.update);
 
         return chart;
 
@@ -690,11 +574,6 @@ function hrvBox(){
                     values[i]=valueANDlabel;
                 }
             }
-            // var returnVal = [];
-            // var element = {};
-            // element.key = "Cumulative Return";
-            // element.values  = values;
-            // returnVal.push(element);
             return values;
 
 
@@ -711,16 +590,8 @@ function hrvBox(){
     var device_id4 = "49AB8FD6-012E-4C61-6F04-18A17A304203";
     var method1 = 'fetchDataOneDay';
     var method2 = 'fetchDataWeek';
-    // fetch_data_Scatter("test1", device_id1, method1 );
-    // fetch_data_Scatter("test2", device_id2, method1);
      fetch_data_Scatter("test3", device_id2, method2);
      fetch_data_Scatter("test4", device_id3, method2);
-     // fetch_data_bar("test5",device_id1, method1);
-    // fetch_data_bar("test6",device_id2, method1);
-    // fetch_data2();
-    // fetch_data3();
-    // fetch_data4();
-     // showHorizontalBarChart("data", "test7");
 
     var numberCalls = 2
     var ajaxCallsRemaining = numberCalls;
@@ -787,24 +658,6 @@ var script1 = document.createElement("script"),
      script3 = document.createElement("script"),
      newD3;
 
-
-// function noConflict() {
-//     newD3 = d3;
-//     console.log("loaded old");
-//     script2.type = 'text/javascript';
-//     script2.src = "http://d3js.org/d3.v2.min.js";
-//     script2.addEventListener("load", ready, false);
-//     document.head.appendChild(script2);
-// }
-
-// function ready() {
-//     console.log("loaded new");
-//     console.log(d3, newD3);
-
-
-// console.log(newD3);
-
-// function noConflict(){
 
 
 //***** global variables for later use
@@ -896,12 +749,7 @@ chart.selectAll(".vline").data(d3.range(7)).enter()
     .style("stroke", "#c2c2d6")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  // draw the x axis
-// var xAxis = d3.svg.axis()
-// .scale(x)
-// .orient('bottom')
-// .tickFormat(d3.time.format("%b-%d"))
-// .tickArguments([d3.timeDay.every(1)]);
+
 
 
  var xAxis = d3
@@ -1227,60 +1075,6 @@ function loadNVd3()
 
 
 
-    //*****TESTCODE-test_why_ugly_sad_face
-    // var margin = {top: 20, right: 15, bottom: 60, left: 60}
-    //       , width = 960 - margin.left - margin.right
-    //       , height = 500 - margin.top - margin.bottom;
-
-    //     var mindate = new Date(2016,2,31),
-    //         maxdate = new Date(2016,3,6);
-    //     // var x = d3.time.scale()
-    //     var x = d3.time.scale()
-    //           .domain([mindate, maxdate])
-    //     .range([0, width]);
-
-
-
-    //     var y = d3.scale.linear()
-    //               .domain([0, 10000])
-    //               .range([ height, 0 ]);
-
-
-    // d3.xml("happy.svg","image/svg+xml", function(error, xml) {
-
-    // // d3.xml("happy.svg").mimeType("image/svg+xml").get(function(error, xml) {
-    //   if (error) throw error;
-    //   happyfaceSVG = jQuery(xml.documentElement);
-    //   happyfaceSVG.attr("width", 40);
-    //   happyfaceSVG.attr("height", 50);
-    //   happyfaceSVG.css("position","absolute")
-    //   happyfaceSVG.attr("left", 20+x(20));
-    //   happyfaceSVG.attr("top", 20+y(20));
-    //   // happyfaceSVG.attr("fill-opacity",0.3);
-    //   happyfaceSVG.attr("style","stroke:black;stroke-opacity:0.7");
-    // });
-
-
-    // // d3.xml("sad.svg").mimeType("image/svg+xml").get(function(error, xml) {
-    // d3.xml("sad.svg","image/svg+xml", function(error, xml) {
-    //   if (error) throw error;
-    //   sadfaceSVG = jQuery(xml.documentElement);
-    //   sadfaceSVG.attr("width", 50);
-    //   sadfaceSVG.attr("height", 50);
-    //   sadfaceSVG.css("position","absolute")
-    //   sadfaceSVG.attr("left", 20+x(20));
-    //   sadfaceSVG.attr("top", 20+y(20));
-    //    sadfaceSVG.attr("fill-opacity",0.8);
-    //   sadfaceSVG.attr("style","stroke:black;stroke-opacity:0.7");
-    // });
-
-
-
-    // window.setTimeout(tempLoadFaceChart, 300);
-    //*****ENDTESTCODE
-    //
-
-    // tempLoadFaceChart();
     //********* after nvd3 is loaded, work on the nvd3 visualization.
     script3.type = 'text/javascript';
     script3.src = "../build/nv.d3.js";
@@ -1295,7 +1089,7 @@ function loadNVd3()
 
 
 //********** load d3 v4 for xml and scaleLinear
-// jQuery("body").addClass("loading");
+jQuery("body").addClass("loading");
 script1.type = 'text/javascript';
 script1.src = "http://d3js.org/d3.v4.min.js";
 script1.addEventListener("load", loadSVGasXML, false);
